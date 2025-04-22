@@ -28,8 +28,10 @@ bmi-calculator/
 
 ## ⚙️ ინსტრუქცია გამოყენებისთვის
 
-1. ✅ გააქტიურე პროექტის საქაღალდე:
+
 ```bash
+1. ✅ გააქტიურე პროექტის საქაღალდე:
+
 git clone https://github.com/შენი-username/bmi-calculator.git
 cd bmi-calculator
 ✅ გაუშვი ფაილი ტერმინში:
