@@ -1,26 +1,17 @@
-import { calculateBMI, getBMICategory } from './modules/bmiCalculator.js';
-import { classifyBMI } from './modules/categoryClassifier.js';
+import { calculateBMI, getBMICategory } from "./modules/bmiCalculator.js";
+import { classifyBMI } from "./modules/categoryClassifier.js";
 
-// Example data
-let height = { feet: 5, inches: 7 }; // Imperial
-let weight = 160; // lbs
-let units = 'imperial';
+// მომხმარებლის მონაცემები
+let height = 160; // სმ
+let weight = 60;  // კგ
+let units = "metric"; // ან "imperial"
 let age = 20;
-let gender = 'female';
+let gender = "female";
 
-// REST და SPREAD მაგალითი
-const userData = { height, weight, units, age, gender };
+// BMI გამოთვლა
+const bmi = calculateBMI(height, weight, units);
+const category = getBMICategory(bmi);
+const fullCategory = classifyBMI(bmi, age, gender);
 
-const calculateAndDisplayBMI = ({ height, weight, units, age, gender }) => {
-    const bmi = calculateBMI(height, weight, units);
-    const category = getBMICategory(bmi);
-    const classified = classifyBMI(bmi, age, gender);
-
-    // Template literal გამოყენება
-    console.log(`Your BMI is ${bmi} (${category}).
-Age: ${age}, Gender: ${gender}
-Classified Category: ${classified}`);
-};
-
-// შედეგის გამოტანა
-calculateAndDisplayBMI({ ...userData });
+console.log(`შენი BMI არის: ${bmi.toFixed(1)} → ${category}`);
+console.log(`დამატებით ასაკისა და სქესის მიხედვით შეფასება: ${fullCategory}`);

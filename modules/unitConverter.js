@@ -1,42 +1,21 @@
-const HEIGHT_CONVERSION = {
-    foot: 30.48,
-    inch: 2.54,
-    meter: 100
-};
-
-const WEIGHT_CONVERSION = {
-    pound: 0.453592
-};
-
 export const convertHeight = (value, fromUnit, toUnit) => {
-    if (fromUnit === toUnit) return value;
+    const conversionFactors = {
+        feet: 30.48,
+        inches: 2.54,
+        cm: 1,
+        meters: 100
+    };
 
-    if (fromUnit === 'imperial' && toUnit === 'metric') {
-        const { feet, inches } = value;
-        const cm = (feet * HEIGHT_CONVERSION.foot) + (inches * HEIGHT_CONVERSION.inch);
-        return cm;
-    }
-
-    if (fromUnit === 'metric' && toUnit === 'imperial') {
-        const totalCm = value;
-        const feet = Math.floor(totalCm / HEIGHT_CONVERSION.foot);
-        const inches = Math.round((totalCm % HEIGHT_CONVERSION.foot) / HEIGHT_CONVERSION.inch);
-        return { feet, inches };
-    }
-
-    return value;
+    const inCm = fromUnit === "meters" ? value * 100 : value * conversionFactors[fromUnit];
+    return toUnit === "meters" ? inCm / 100 : inCm / conversionFactors[toUnit];
 };
 
 export const convertWeight = (value, fromUnit, toUnit) => {
-    if (fromUnit === toUnit) return value;
+    const conversionFactors = {
+        lbs: 0.453592,
+        kg: 1
+    };
 
-    if (fromUnit === 'imperial' && toUnit === 'metric') {
-        return value * WEIGHT_CONVERSION.pound;
-    }
-
-    if (fromUnit === 'metric' && toUnit === 'imperial') {
-        return value / WEIGHT_CONVERSION.pound;
-    }
-
-    return value;
+    const inKg = value * conversionFactors[fromUnit];
+    return inKg / conversionFactors[toUnit];
 };

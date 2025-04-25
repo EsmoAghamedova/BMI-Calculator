@@ -1,22 +1,17 @@
-import { convertHeight, convertWeight } from './unitConverter.js';
-
 export const calculateBMI = (height, weight, units) => {
-    let heightInMeters = units === 'metric'
-        ? height / 100
-        : convertHeight(height, 'imperial', 'metric') / 100;
+    if (units === "imperial") {
+        height = height * 0.0254; // ინჩი → მეტრი
+        weight = weight * 0.453592; // lbs → კგ
+    } else {
+        height = height / 100; // სმ → მეტრი
+    }
 
-    let weightInKg = units === 'metric'
-        ? weight
-        : convertWeight(weight, 'imperial', 'metric');
-
-    const bmi = weightInKg / (heightInMeters ** 2);
-    return +bmi.toFixed(2);
+    return weight / (height * height);
 };
 
-export const getBMICategory = (bmiValue) => {
-    if (bmiValue < 18.5) return 'Underweight';
-    if (bmiValue < 25) return 'Normal';
-    if (bmiValue < 30) return 'Overweight';
-    return 'Obese';
+export const getBMICategory = (bmi) => {
+    if (bmi < 18.5) return "გამხდარი (Underweight)";
+    else if (bmi < 25) return "ნორმალური (Normal)";
+    else if (bmi < 30) return "ჭარბწონიანი (Overweight)";
+    else return "მსუქანი (Obese)";
 };
-
